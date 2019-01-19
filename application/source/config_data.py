@@ -4,7 +4,8 @@ from constants import *
 
 class ConfigData(object):
     def __init__(self, file_path):
-        data = json.load(open("" + file_path + "", encoding='utf-8'))
+        with open("" + file_path + "", encoding='utf-8') as config_file:
+            data = json.load(config_file)
 
         """language"""
         # string
@@ -74,9 +75,9 @@ class ConfigData(object):
 
     def transofrm_phono_changes_phonotypes(self):
         for letter in self.phono_changes:
-            self.phono_changes[letter]['preceding'] = self.change_text_to_sign(self.phono_changes[letter]['preceding'])
-            self.phono_changes[letter]['following'] = self.change_text_to_sign(self.phono_changes[letter]['following'])
-            self.phono_changes[letter]['becomes'] = self.change_text_to_sign(self.phono_changes[letter]['becomes'])
+            self.phono_changes[letter]['preceding'] = self.change_array_of_texts_to_signs(self.phono_changes[letter]['preceding'])
+            self.phono_changes[letter]['following'] = self.change_array_of_texts_to_signs(self.phono_changes[letter]['following'])
+            self.phono_changes[letter]['becomes'] = self.change_array_of_texts_to_signs(self.phono_changes[letter]['becomes'])
 
     def change_array_of_texts_to_signs(self, array):
         signs = []

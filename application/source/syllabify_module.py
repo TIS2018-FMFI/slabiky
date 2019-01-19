@@ -45,21 +45,21 @@ class SyllabifyModule(ThreadModule):
         syllables = self.syllabify_text(word.get_text(), syllabified_phonotypes)
         return SyllablesPhonotypes(syllables, syllabified_phonotypes)
 
-    def first_iteration(self, phonotypes):
+    def first_iteration_of_syllabification(self, phonotypes):
         partially_syllabified_phonotypes = self.split_after_each_vowel(phonotypes)
         if self.last_syllable_is_empty(partially_syllabified_phonotypes):
             return partially_syllabified_phonotypes[0:-1]
         return partially_syllabified_phonotypes
 
-    def second_iteration(self, syllabified_phonotypes):
+    def second_iteration_of_syllabification(self, syllabified_phonotypes):
         syllabified_phonotypes = self.check_sonority_principle(syllabified_phonotypes)
         if self.last_syllable_doesnt_contain_vowel(syllabified_phonotypes[-1]):
             syllabified_phonotypes = self.move_last_syllable_to_precedent(syllabified_phonotypes)
         return syllabified_phonotypes
 
     def syllabify_phonotypes(self, phonotypes):
-        partially_syllabified_phonotypes = self.first_iteration(phonotypes)
-        return self.second_iteration(partially_syllabified_phonotypes)
+        partially_syllabified_phonotypes = self.first_iteration_of_syllabification(phonotypes)
+        return self.second_iteration_of_syllabification(partially_syllabified_phonotypes)
 
     def syllabify_text(self, text, syllabified_phonotypes):
         syllabified_text = []
@@ -86,7 +86,7 @@ class SyllabifyModule(ThreadModule):
         partially_syllabified_phonotypes = [[]]
         for phonotype in phonotypes:
             partially_syllabified_phonotypes[-1].append(phonotype)
-            if phonotype == VOWEL:
+            if self.is_vowel(phonotype):
                 partially_syllabified_phonotypes.append([])
         return partially_syllabified_phonotypes
 
@@ -96,7 +96,7 @@ class SyllabifyModule(ThreadModule):
     def check_sonority_principle(self, partially_syllabified_phonotypes):
         for i in range(1, len(partially_syllabified_phonotypes)):
             move_to_precedent_index = self.find_last_phonotype_in_syllable_breaking_principle(partially_syllabified_phonotypes[i])
-            if move_to_precedent_index != NO_PHONOTYPE_BREAKING_PRINCIPLE:
+            if self.letter_breaking_principle_exists(move_to_precedent_index):
                 self.move_phonotypes_breaking_principle(move_to_precedent_index, partially_syllabified_phonotypes, i)
         return partially_syllabified_phonotypes
 
@@ -124,3 +124,9 @@ class SyllabifyModule(ThreadModule):
         syllabified_phonotypes[-2].extend(syllabified_phonotypes[-1])
         syllabified_phonotypes = syllabified_phonotypes[0:-1]
         return syllabified_phonotypes
+
+    def is_vowel(self, phonotype):
+        return phonotype == VOWEL
+
+    def letter_breaking_principle_exists(self, index):
+        return index != NO_PHONOTYPE_BREAKING_PRINCIPLE
