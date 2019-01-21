@@ -77,7 +77,7 @@ class ConfigData(object):
         for letter in self.phono_changes:
             self.phono_changes[letter]['preceding'] = self.change_array_of_texts_to_signs(self.phono_changes[letter]['preceding'])
             self.phono_changes[letter]['following'] = self.change_array_of_texts_to_signs(self.phono_changes[letter]['following'])
-            self.phono_changes[letter]['becomes'] = self.change_array_of_texts_to_signs(self.phono_changes[letter]['becomes'])
+            self.phono_changes[letter]['becomes'] = self.change_text_to_sign(self.phono_changes[letter]['becomes'])
 
     def change_array_of_texts_to_signs(self, array):
         signs = []
