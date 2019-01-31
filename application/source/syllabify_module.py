@@ -100,16 +100,23 @@ class SyllabifyModule(ThreadModule):
                 self.move_phonotypes_breaking_principle(move_to_precedent_index, partially_syllabified_phonotypes, i)
         return partially_syllabified_phonotypes
 
-    def breakes_sonority_principle(self, phonotype, next_phonotype, phonotype_index):
-        return (phonotype not in [SUBUNIT, SPEC] and  phonotype > next_phonotype) \
-               or (phonotype_index == 0 and phonotype == SPEC)
-
     def find_last_phonotype_in_syllable_breaking_principle(self, phonotype_syllable):
         move_to_precedent_index = NO_PHONOTYPE_BREAKING_PRINCIPLE
         for j in range(len(phonotype_syllable) - 1):
-            if self.breakes_sonority_principle(phonotype_syllable[j], phonotype_syllable[j + 1], j):
+            next_index = self.find_index_of_next_phonotype(j, phonotype_syllable, len(phonotype_syllable) - 1)
+            if self.breakes_sonority_principle(phonotype_syllable[j], phonotype_syllable[next_index], j, move_to_precedent_index):
                 move_to_precedent_index = j
         return move_to_precedent_index
+
+    def find_index_of_next_phonotype(self, j, phonotype_syllable, last_index):
+        next_index = j + 1
+        if phonotype_syllable[next_index] in [SPEC, SUBUNIT] and next_index != last_index:
+            next_index += 1
+        return next_index
+
+    def breakes_sonority_principle(self, phonotype, next_phonotype, phonotype_index, last_index_breaking_principle):
+        return (phonotype not in [SUBUNIT, SPEC] and  phonotype > next_phonotype) \
+               or (phonotype_index == 0 and phonotype == SPEC) or (phonotype == SPEC and phonotype_index == last_index_breaking_principle+1);
 
     def move_phonotypes_breaking_principle(self, move_to_precedent_index, partially_syllabified_phonotypes, syllable_index):
         partially_syllabified_phonotypes[syllable_index - 1].extend(

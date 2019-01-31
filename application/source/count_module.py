@@ -168,10 +168,11 @@ class CountModule(ThreadModule):
     def find_lenght_fulfilling_condition(self, following_letter, following_phonotype, letter, preceding_letter,
                                          preceding_phonotype):
         for length in ("0", "1", "2"):
-            condition = self._data.spec_sound_len[letter][length]
-            if self.condition_fulfilled(condition, following_letter, following_phonotype, preceding_letter,
-                                        preceding_phonotype):
-                return int(length)
+            for condition in self._data.spec_sound_len[letter][length]:
+            # condition = self._data.spec_sound_len[letter][length]
+                if self.condition_fulfilled(condition, following_letter, following_phonotype, preceding_letter,
+                                            preceding_phonotype):
+                    return int(length)
         return ERROR_LENGTH
 
     def get_whole_letter(self, index_of_letter):

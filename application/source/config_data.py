@@ -69,9 +69,10 @@ class ConfigData(object):
     def transform_spec_sound_len_phonotypes(self):
         for letter in self.spec_sound_len:
             for length in ("0", "1", "2"):
-                for position in ("following", "preceding"):
-                    self.spec_sound_len[letter][length][position]['signs'] = \
-                        self.change_array_of_texts_to_signs(self.spec_sound_len[letter][length][position]['signs'])
+                for condition in range(len(self.spec_sound_len[letter][length])):
+                    for position in ("following", "preceding"):
+                        self.spec_sound_len[letter][length][condition][position]['signs'] = \
+                            self.change_array_of_texts_to_signs(self.spec_sound_len[letter][length][condition][position]['signs'])
 
     def transofrm_phono_changes_phonotypes(self):
         for letter in self.phono_changes:
