@@ -20,6 +20,9 @@ class WriteModule(ThreadModule):
             word = pipe_in.get()
             pipe_in.release()
             if isinstance(word, End):
+                if (self._spacer == "" and self._lenghts == "" and self._syllables == ""):
+                    self._lenghts = "input error"
+                    self._syllables = "input error"
                 self.write_to_file()
                 break
             else:
