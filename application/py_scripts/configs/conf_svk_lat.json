@@ -218,45 +218,39 @@
       "phoneme-length": 1,
       "sign": "OBSTR",
       "subunit": 0
+    },
+    "$": {
+      "phoneme-length": 1,
+      "sign": "VOWEL",
+      "subunit": 0
+    },
+    "&": {
+      "phoneme-length": 1,
+      "sign": "VOWEL",
+      "subunit": 0
+    },
+    "#": {
+      "phoneme-length": 1,
+      "sign": "VOWEL",
+      "subunit": 0
+    },
+    "%": {
+      "phoneme-length": 1,
+      "sign": "VOWEL",
+      "subunit": 0
+    },
+    "§": {
+      "phoneme-length": 1,
+      "sign": "VOWEL",
+      "subunit": 0
+    },
+    "ě": {
+      "phoneme-length": 1,
+      "sign": "VOWEL",
+      "subunit": 0
     }
   },
   "clusters": {
-    "i": {
-      "a": {
-        "except_in_subword": [],
-        "only_in_subword": [],
-        "length": 1,
-        "phonotype": "VOWEL"
-      },
-      "e": {
-        "except_in_subword": [],
-        "only_in_subword": [],
-        "length": 1,
-        "phonotype": "VOWEL"
-      },
-      "u": {
-        "except_in_subword": [],
-        "only_in_subword": [],
-        "length": 1,
-        "phonotype": "VOWEL"
-      }
-    },
-    "o": {
-      "u": {
-        "except_in_subword": [],
-        "only_in_subword": [],
-        "length": 1,
-        "phonotype": "VOWEL"
-      }
-    },
-    "a": {
-      "u": {
-        "except_in_subword": [],
-        "only_in_subword": [],
-        "length": 1,
-        "phonotype": "VOWEL"
-      }
-    },
     "c": {
         "h": {
           "except_in_subword": [],
